@@ -71,16 +71,16 @@ export default function SignInForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto p-4 sm:p-6 lg:p-8 shadow-lg">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl font-bold text-center">
           Sign In
         </CardTitle>
-        <CardDescription className="text-center">
+        <CardDescription className="text-center text-sm sm:text-base">
           Enter your credentials to access your account
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-6">
+      <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -90,7 +90,11 @@ export default function SignInForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your email" {...field} />
+                    <Input
+                      placeholder="Enter your email"
+                      {...field}
+                      className="text-sm sm:text-base"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -107,20 +111,25 @@ export default function SignInForm() {
                       type="password"
                       placeholder="Enter your password"
                       {...field}
+                      className="text-sm sm:text-base"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full mt-6" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full mt-6 text-sm sm:text-base"
+              disabled={isLoading}
+            >
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
         </Form>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <p className="text-sm text-gray-600">
+        <p className="text-xs sm:text-sm text-gray-600">
           Don&apos;t have an account?{" "}
           <Link href="/sign-up" className="text-blue-600 hover:underline">
             Sign up
