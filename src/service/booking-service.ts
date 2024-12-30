@@ -134,6 +134,7 @@ export class BookingService {
 
         return bookedSeats;
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(`Booking failed: ${error.message}`);
     }
@@ -155,6 +156,7 @@ export class BookingService {
 
         return { message: "All bookings reset successfully" };
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(`Reset failed: ${error.message}`);
     }
@@ -168,6 +170,7 @@ export class BookingService {
         },
       });
       return seats;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error("Failed to fetch seats: " + error.message);
     }

@@ -13,6 +13,7 @@ export async function bookSeats(numberOfSeats: number, userId: string) {
     });
     revalidatePath("/booking");
     return { success: true, data: bookedSeats };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return { success: false, error: error.message };
   }
@@ -28,6 +29,7 @@ export async function getSeats() {
     });
     console.log("Fetched seats:", seats);
     return seats;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error("Failed to fetch seats: " + error.message);
   }
@@ -38,6 +40,7 @@ export async function resetBookings() {
     await bookingService.resetAllBookings();
     revalidatePath("/booking");
     return { success: true };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return { success: false, error: error.message };
   }
