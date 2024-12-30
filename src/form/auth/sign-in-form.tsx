@@ -58,13 +58,16 @@ export default function SignInForm() {
       });
 
       if (result?.error) {
-        toast("Error Invalid email or password destructive");
-      } else {
-        router.push("/");
+        // Display the error in a toast
+        toast.error("Invalid email or password.");
+      } else if (result?.ok) {
+        // Redirect the user to the homepage after successful login
+        toast.success("Signed in successfully.");
+        router.push("/"); // Home page after successful login
       }
     } catch (error) {
       console.error("Sign-in error:", error);
-      toast("Error An unexpected error occurred. Please try again destructive");
+      toast.error("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }

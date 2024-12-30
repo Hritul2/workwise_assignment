@@ -17,8 +17,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         const { data, error, success } =
           credentialsSchema.safeParse(credentials);
-        if (error) return null;
-        if (!success) return null;
+        if (error || !success) return null;
         const { email, password } = data;
 
         if (!email || !password) return null;
