@@ -11,6 +11,29 @@ model User {
   id        String    @id @default(uuid())
   email     String    @unique
   password  String
+  bookings  Booking[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+model Seat {
+  id         String   @id @default(uuid())
+  seatNumber Int
+  rowNumber  Int
+  isBooked   Boolean  @default(false)
+  booking    Booking? @relation(fields: [bookingId], references: [id])
+  bookingId  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([seatNumber])
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  seats     Seat[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
