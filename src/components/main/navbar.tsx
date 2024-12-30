@@ -9,18 +9,31 @@ const Navbar = () => {
   const isAuthenticated = status === "authenticated";
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-gray-100">
-      <div className="text-xl font-bold">Hritul_Workwise_Assignment</div>
-      <div className="flex items-center space-x-4">
+    <nav className="flex items-center justify-between p-4 bg-gray-100 shadow-md">
+      {/* Brand */}
+      <div className="text-lg font-bold sm:text-xl lg:text-2xl whitespace-nowrap">
+        Hritul_Workwise_Assignment
+      </div>
+
+      {/* Right Section */}
+      <div className="flex flex-wrap items-center space-x-4 sm:space-x-6">
         {isAuthenticated ? (
           <>
-            <span className="text-sm text-black">{session?.user?.email}</span>
-            <Button onClick={() => signOut()} variant="outline">
+            <span className="text-xs sm:text-sm lg:text-base text-black truncate max-w-[10rem] sm:max-w-none">
+              {session?.user?.email}
+            </span>
+            <Button
+              onClick={() => signOut()}
+              variant="outline"
+              className="text-xs sm:text-sm lg:text-base"
+            >
               Sign Out
             </Button>
           </>
         ) : (
-          <span className="text-sm text-gray-500">Not logged in</span>
+          <span className="text-xs sm:text-sm lg:text-base text-gray-500">
+            Not logged in
+          </span>
         )}
       </div>
     </nav>
