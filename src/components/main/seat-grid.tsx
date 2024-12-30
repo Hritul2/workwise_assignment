@@ -10,14 +10,22 @@ interface SeatGridProps {
   seats: Seat[];
   totalSeats: number;
   seatsPerRow: number;
+  onSeatClick?: (seat: Seat) => void;
 }
 
-const SeatGrid: React.FC<SeatGridProps> = ({
+const SeatGrid = ({
   seats,
   totalSeats,
   seatsPerRow,
-}) => {
+  onSeatClick,
+}: SeatGridProps) => {
   const totalRows = Math.ceil(totalSeats / seatsPerRow);
+
+  const getSeatColor = (isBooked: boolean) => {
+    return isBooked
+      ? "bg-amber-500 hover:bg-amber-600"
+      : "bg-green-500 hover:bg-green-600";
+  };
 
   const generateSeats = () => {
     const seatElements = [];
@@ -34,21 +42,34 @@ const SeatGrid: React.FC<SeatGridProps> = ({
         if (currentSeat < seats.length) {
           const seatData = seats[currentSeat];
           rowSeats.push(
-            <div
+            <button
               key={seatData.id}
-              className={`${
-                seatData.isBooked ? "bg-amber-300" : "bg-green-500"
-              } rounded-lg px-4 py-2 text-center m-1 shadow-md`}
+              onClick={() => onSeatClick?.(seatData)}
+              disabled={seatData.isBooked}
+              className={`
+                ${getSeatColor(seatData.isBooked)}
+                rounded-lg px-4 py-2 m-1
+                transition-colors duration-200
+                text-white font-medium
+                shadow-md hover:shadow-lg
+                focus:outline-none focus:ring-2 focus:ring-offset-2 
+                focus:ring-green-500
+                disabled:opacity-70 disabled:cursor-not-allowed
+                min-w-[3rem]
+              `}
+              aria-label={`Seat ${seatData.seatNumber} ${
+                seatData.isBooked ? "(Booked)" : "(Available)"
+              }`}
             >
               {seatData.seatNumber}
-            </div>
+            </button>
           );
           currentSeat++;
         }
       }
 
       seatElements.push(
-        <div key={row} className="flex justify-start mb-2">
+        <div key={row} className="flex justify-center flex-wrap mb-4">
           {rowSeats}
         </div>
       );
@@ -57,7 +78,19 @@ const SeatGrid: React.FC<SeatGridProps> = ({
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">{generateSeats()}</div>
+    <div className="bg-white p-6 rounded-xl shadow-lg max-w-4xl mx-auto">
+      <div className="mb-6 flex justify-center space-x-4">
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-green-500 rounded mr-2"></div>
+          <span className="text-sm text-gray-600">Available</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-amber-500 rounded mr-2"></div>
+          <span className="text-sm text-gray-600">Booked</span>
+        </div>
+      </div>
+      {generateSeats()}
+    </div>
   );
 };
 

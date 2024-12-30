@@ -28,19 +28,19 @@ interface BookingControlsProps {
   error?: string;
 }
 
-const BookingControls: React.FC<BookingControlsProps> = ({
+const BookingControls = ({
   setNumberOfSeats,
   handleBook,
   handleReset,
   isBooking,
   isResetting,
   error,
-}) => {
+}: BookingControlsProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<BookingFormData>({
+  } = useForm({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       numberOfSeats: "",
@@ -53,7 +53,7 @@ const BookingControls: React.FC<BookingControlsProps> = ({
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
       <h2 className="text-xl font-semibold mb-4">Book Seats</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-2">

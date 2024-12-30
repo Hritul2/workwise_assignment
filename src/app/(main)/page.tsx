@@ -34,7 +34,7 @@ const Home = () => {
   } = useQuery({
     queryKey: ["seats"],
     queryFn: () => getSeats(),
-    refetchInterval: 2000,
+    refetchInterval: 500,
   });
   const bookMutation = useMutation({
     mutationFn: (seatCount: number) => bookSeats(seatCount, user_id),
@@ -71,17 +71,17 @@ const Home = () => {
   const availableSeats = totalSeats - bookedSeatsCount;
 
   return (
-    <div className="mx-auto bg-gray-50 h-full w-full">
+    <div className="mx-auto bg-gray-50 h-full w-full px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold text-center mb-8">Ticket Booking</h1>
-      <div className="flex justify-center items-center gap-10">
-        <div className="">
+      <div className="flex flex-col lg:flex-row justify-center items-center gap-10">
+        <div className="flex-1">
           <SeatGrid
             seats={seats}
             totalSeats={totalSeats}
             seatsPerRow={seatsPerRow}
           />
         </div>
-        <div className="">
+        <div className="flex-1">
           <BookingControls
             setNumberOfSeats={setNumberOfSeats}
             handleBook={handleBook}
